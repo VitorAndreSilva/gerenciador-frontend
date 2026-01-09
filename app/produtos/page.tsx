@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { fetchProdutos } from "@/services/produtos"
 
 type Produto = {
@@ -20,6 +21,11 @@ export default async function Produtos() {
                     </div>
                 ))}
             </div>
+            <Link 
+            href="/produtos/criar"
+            className="inline-block mt-3 px-2 py-2 rounded hover:bg-black hover:text-white border"
+            >Adicionar produto
+            </Link>
         </div>
     )
 }

@@ -1,15 +1,20 @@
-const API_URL = "https://gerenciamento-qwez.onrender.com/api/v1"
+import api from "./api";
+
+type ProdutoPayload = {
+    nome: string,
+    marca: number,
+    tipo: string,
+    capacidade: number,
+    preco: number,
+    quantidade: number,
+}
 
 export async function fetchProdutos() {
-    const res = await fetch(`${API_URL}/produtos`, {
-        cache: "no-store"
-    })
+    const response = await api.get('/produtos/');
+    return response.data.results;
+}
 
-    if (!res.ok) {
-        throw new Error("Não foi possível encontrar os produtos");
-    }
-
-    const data = await res.json();
-    console.log(data.results);
-    return data.results;
+export async function createProdutos(produto: ProdutoPayload) {
+    const response = await api.post('/produtos/', produto);
+    return response.data;
 }

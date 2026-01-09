@@ -11,10 +11,10 @@ export default function Sidebar() {
                     Produtos
                 </Link>
                 <Link
-                href="/estoque"
+                href="/marcas"
                 className="px-3 py-2 rounded hover:bg-gray-100"
                 >
-                    Estoque
+                    Marcas
                 </Link>
             </nav>
         </aside>
