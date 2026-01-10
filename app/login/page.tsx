@@ -15,7 +15,8 @@ export default function Login() {
 
         try {
             const data = await login(username, password);
-            localStorage.setItem("token", data.access);
+            document.cookie = `token=${data.access}; path=/; SameSite=Lax` // Para o middleware
+            localStorage.setItem("token", data.access); // Para o axios
             localStorage.setItem("user", JSON.stringify(data.user));
             router.push("/");
         } catch (error: unknown) {
