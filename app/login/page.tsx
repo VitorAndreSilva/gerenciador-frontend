@@ -3,8 +3,10 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { login } from "@/services/auth";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Login() {
+    const auth = useAuth();
     const router = useRouter();
 
     const [username, setUsername] = useState("");
@@ -15,9 +17,14 @@ export default function Login() {
 
         try {
             const data = await login(username, password);
-            document.cookie = `token=${data.access}; path=/; SameSite=Lax` // Para o middleware
-            localStorage.setItem("token", data.access); // Para o axios
-            localStorage.setItem("user", JSON.stringify(data.user));
+            document.cookie = [
+                `token=${data.access}`,
+                "path=/",
+                "SameSite=Lax",
+                "max-age=86400" // 1 dia
+            ].join("; "); // Para o middleware
+            auth.login(data.access, data.user);
+            alert("Bem-vindo!");
             router.push("/");
         } catch (error: unknown) {
             console.error("Erro ao realizar login: ", error);
