@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, JSX, useContext, useEffect, useState } from "react";
+import { createContext, JSX, useContext, useState } from "react";
 import api from "@/services/api";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
@@ -30,29 +30,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
     const router = useRouter();
     const [user, setUser] = useState<User | null>(() => {
         if (typeof window === "undefined") return null;
-
-        const savedUser = localStorage.getItem("user");
-        if (savedUser && savedUser !== "undefined") {
-            try {
-                return JSON.parse(savedUser);
-            } catch {
-                return null
-            }
-        } else {
-            return null
-        }
-    });
-    const [loading] = useState(true);
-
-    useEffect(() => { // Tudo o que vai acontecer quando o site carregar
         const cookies = document.cookie.split("; ");
         const tokenCookie = cookies.find(cookie => cookie.startsWith("token="));
+        if (!tokenCookie) return null;
 
-        if (tokenCookie) {
-            const token = tokenCookie.split("=")[1];
-            api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        const token = tokenCookie.split("=")[1];
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        
+        const decoded = jwtDecode<JWTPayload>(token)
+        return {
+            id: decoded.user_id,
+            username: decoded.username,
+            is_admin: decoded.is_staff
         }
-    }, []);
+    });
+
+    const loading = false;
 
     function login(token: string) {
         const decoded = jwtDecode<JWTPayload>(token)

@@ -18,3 +18,7 @@ export async function createProdutos(produto: ProdutoPayload) {
     const response = await api.post('/produtos/', produto);
     return response.data;
 }
+
+export async function deleteProduto(id: number) {
+    await api.delete(`/produtos/${id}/`);
+}

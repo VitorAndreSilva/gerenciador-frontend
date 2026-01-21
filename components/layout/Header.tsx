@@ -3,8 +3,9 @@ import { useAuth } from "@/contexts/AuthContext";
 import Link from "next/link"
 
 export default function Header() {
-    const { user, logout } = useAuth();
+    const { user, loading, logout } = useAuth();
 
+    if (loading) return null;
     if (!user) return null;
 
     return (
