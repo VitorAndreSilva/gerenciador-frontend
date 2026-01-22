@@ -17,7 +17,7 @@ export default function Login() {
 
         try {
             const data = await login(username, password);
-            document.cookie = `token=${data.access}; path=/; SameSite=Lax; Secure` // Para o middleware
+            document.cookie = `token=${data.access}; path=/; SameSite=None; Secure` // Para o middleware
             auth.login(data.access, data.user);
             alert("Bem-vindo!");
             router.push("/");

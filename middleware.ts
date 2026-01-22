@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
     if (!token && isPrivatePage) {
         return NextResponse.redirect(new URL("/login", request.url));
     }
-    if (isAuthPage) {
+    if (token && isAuthPage) {
         return NextResponse.redirect(new URL("/", request.url));
     }
     return NextResponse.next();
