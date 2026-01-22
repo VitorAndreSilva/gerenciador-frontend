@@ -20,7 +20,8 @@ export default function Login() {
             document.cookie = `token=${data.access}; path=/; SameSite=None; Secure` // Para o middleware
             auth.login(data.access, data.user);
             alert("Bem-vindo!");
-            router.push("/");
+            router.refresh();
+            router.replace("/");
         } catch (error: unknown) {
             console.error("Erro ao realizar login: ", error);
         }
