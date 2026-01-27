@@ -8,6 +8,7 @@ type Props = {
         id: number;
         nome: string;
         marca: string;
+        preco: number;
         quantidade: number;
     }
 }
@@ -27,6 +28,9 @@ export default function ProdutoItem({ produto }: Props) {
          <div className="border-t p-2 flex justify-between items-center">
             <div>
                 <h3 className="font-medium">{produto.marca} {produto.nome}</h3>
+                <p className="font-normal text-gray-700">
+                    Preço: {produto.preco}
+                </p>
                 <p className="text-sm text-gray-600">
                     Quantidade: {produto.quantidade}
                 </p>
