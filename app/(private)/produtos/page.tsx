@@ -1,6 +1,9 @@
+"use client"
+
 import Link from "next/link";
 import { fetchProdutos } from "@/services/produtos"
 import ProdutoItem from "@/components/produtos/ProdutoItem";
+import { useEffect, useState } from "react";
 
 type Produto = {
     id: number,
@@ -10,8 +13,15 @@ type Produto = {
     quantidade: number
 }
 
-export default async function Produtos() {
-    const produtos: Produto[] = await fetchProdutos();
+export default function Produtos() {
+    const [produtos, setProdutos] = useState<Produto[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchProdutos().then(setProdutos).finally(() => setLoading(false));
+    }, []);
+
+    if (loading) return <p>Carregando...</p>
     return (
         <div>
             <h2 className="text-2xl font-bold mb-4">Produtos</h2>
