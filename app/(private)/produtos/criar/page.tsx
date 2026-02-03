@@ -12,8 +12,6 @@ export default function NovoProduto() {
     const [nome, setNome] = useState("");
     const [marca, setMarca] = useState<number>(0);
     const [marcas, setMarcas] = useState<Marca[]>([]);
-    const [tipo, setTipo] = useState("");
-    const [capacidade, setCapacidade] = useState<number | "">("");
     const [preco, setPreco] = useState<number | "">("");
     const [quantidade, setQuantidade] = useState<number | "">("");
 
@@ -24,7 +22,7 @@ export default function NovoProduto() {
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
 
-        if (preco === "" || capacidade === "" || quantidade === "") {
+        if (preco === "" || quantidade === "") {
             alert("Preencha todos os campos numéricos")
             return;
         }
@@ -32,8 +30,6 @@ export default function NovoProduto() {
         await createProdutos({
             nome,
             marca,
-            tipo,
-            capacidade,
             preco,
             quantidade
         });
@@ -68,22 +64,6 @@ export default function NovoProduto() {
                             </option>
                         ))}
                     </select>
-                    <input 
-                    className="w-full border p-2"
-                    type="text" 
-                    placeholder="Tipo do produto"
-                    value={tipo}
-                    onChange={e => setTipo(e.target.value)}
-                    required
-                    />
-                    <input 
-                    className="w-full border p-2"
-                    type="number"
-                    placeholder="Capacidade"
-                    value={capacidade}
-                    onChange={e => setCapacidade(e.target.value === "" ? "" : Number(e.target.value))}
-                    required
-                    />
                     <input 
                     className="w-full border p-2"
                     type="number"

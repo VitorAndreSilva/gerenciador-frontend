@@ -7,6 +7,6 @@ export type Marca = {
 
 export async function fetchMarcas(): Promise<Marca[]> {
     const response = await api.get('/marcas/');
-    console.log(response.data.results);
-    return response.data.results;
+    //console.log(response.data.results);
+    return response.data;
 }

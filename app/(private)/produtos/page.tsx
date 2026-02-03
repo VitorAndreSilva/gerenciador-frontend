@@ -17,8 +17,22 @@ export default function Produtos() {
     const [produtos, setProdutos] = useState<Produto[]>([]);
     const [loading, setLoading] = useState(true);
 
+    async function loadProdutos() {
+        setLoading(true)
+        try {
+            const data = await fetchProdutos()
+            setProdutos(data || []);
+            console.log("Produtos:", data);
+        } catch (error) {
+            console.error("Erro ao buscar produtos: ", error);
+            setProdutos([]);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
-        fetchProdutos().then(setProdutos).finally(() => setLoading(false));
+        loadProdutos();
     }, []);
 
     if (loading) return <p>Carregando...</p>
