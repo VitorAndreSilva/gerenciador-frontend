@@ -13,8 +13,18 @@ export async function fetchProdutos() {
     return response.data;
 }
 
+export async function getProdutoById(id: string) {
+    const response = await api.get(`/produtos/${id}`);
+    return response.data;
+}
+
 export async function createProdutos(produto: ProdutoPayload) {
     const response = await api.post('/produtos/', produto);
+    return response.data;
+}
+
+export async function editProduto(produto: ProdutoPayload, id: string) {
+    const response = await api.patch(`/produtos/${id}/`, produto);
     return response.data;
 }
 

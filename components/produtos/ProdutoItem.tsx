@@ -25,8 +25,8 @@ export default function ProdutoItem({ produto }: Props) {
     }
 
     return (
-         <div className="border-t p-2 flex justify-between items-center">
-            <div>
+         <div className="border-t p-2 flex justify-between items-center cursor-pointer">
+            <div onClick={() => router.push(`produtos/${produto.id}`)}>
                 <h3 className="font-medium">{produto.marca} {produto.nome}</h3>
                 <p className="font-normal text-gray-700">
                     Preço: {produto.preco}
