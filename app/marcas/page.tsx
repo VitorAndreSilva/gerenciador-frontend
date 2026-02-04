@@ -1,5 +1,7 @@
 import { fetchMarcas } from "@/services/marcas";
 
+export const dynamic = "force-dynamic";
+
 type Marca = {
     id: number,
     nome: string,
